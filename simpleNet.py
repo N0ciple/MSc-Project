@@ -11,19 +11,20 @@ import random
 import numpy as np
 from math import floor
 
+# Initiate the parameters of the graph
 def initGraphParam(myG,myNumRum,myThreshMax):
     for i in range(myNumRum):
-        nx.set_node_attributes(Graph, 'infected'+str(i+1), False)
+        nx.set_node_attributes(Graph, 'infected'+str(i+1), False)   # Init infection state
         nx.set_node_attributes(Graph, 'counter'+str(i+1), 1)
         for j in myG.nodes():
-            myG.node[j]['counter'+str(i+1)] = list()
+            myG.node[j]['counter'+str(i+1)] = list()                # Generate infector list
 
     nx.set_node_attributes(Graph, 'threshold', 1)
     for i in myG.nodes():
-        myG.node[i]['threshold'] = random.randint(1,myThreshMax)
+        myG.node[i]['threshold'] = random.randint(1,myThreshMax)    # Init threshold
     return myG
 
-
+# Initiate the source of the rumours
 def initSourceNode(myG,myNumRum):
     nodeList = myG.nodes()
     sources = []
@@ -88,17 +89,17 @@ def infectionForward(myG, myProba, myNumRum):
         for i in myG.nodes():
             if myG.node[i]['infected'+str(k+1)]:
                 neiList = myG.neighbors(i)
-                #print('node ',i,' neighbors = ',neiList)
+                # print('node ',i,' neighbors = ',neiList)
                 for j in neiList:
                     if random.random() < myProba:
                         myG2.node[j]['counter'+str(k+1)].append(i)
-                        #print(myG2.node[j]['counter' + str(k + 1)])
+                        # print(myG2.node[j]['counter' + str(k + 1)])
                         myG2.node[j]['counter' + str(k + 1)] = list(set(myG2.node[j]['counter'+str(k+1)]))
-                        #print(myG2.node[j]['counter' + str(k + 1)])
+                        # print(myG2.node[j]['counter' + str(k + 1)])
         for l in myG2.nodes():
             if len(myG2.node[l]['counter'+str(k+1)]) >= myG2.node[l]['threshold']:
-                #print('debug node ',l,'rumor : ',k,' counter : ', myG2.node[l]['counter'+str(k+1)], ' th : ',myG2.node[l]['threshold'])
-                #print('infectors for ',l, ' = ',myG2.node[l]['counter'+str(k+1)])
+                # print('debug node ',l,'rumor : ',k,' counter : ', myG2.node[l]['counter'+str(k+1)], ' th : ',myG2.node[l]['threshold'])
+                # print('infectors for ',l, ' = ',myG2.node[l]['counter'+str(k+1)])
                 myG2.node[l]['infected' + str(k + 1)] = True
 
     return myG2
@@ -189,18 +190,16 @@ def findPossibleSets2(myG,mySources,myTrig,myNumRum):
     print('Source : ',mySources[0],' Max : ',max(arrayAsList), ' value : ',arrayAsList[mySources[0]])
     posList = list()
     for i in range(len(array)):
-        if array[i] == maxVal :
+        if maxVal == array[i]:
             posList.append(i)
     return posList
 
 
 
 
-
-
 if __name__ == '__main__':
     numRumors = 3
-    maxThreshold = 2
+    maxThreshold = 1
     numMonitors = 3
     propagProba = 0.05
     numNodes = 200
