@@ -11,15 +11,42 @@ import numpy as np
 from math import floor
 
 
+def generateGraph(myNumNodes,myLinkProba,myGraphType):
+
+    myGraphType = myGraphType%6
+
+    myGraph = nx.karate_club_graph()
+
+    if myGraphType == 1:
+        # Small World
+        myGraph = nx.watts_strogatz_graph(myNumNodes, 5, 0.2)
+    if myGraphType == 2:
+        # Tree
+        myGraph = nx.balanced_tree(5,3)
+    if myGraphType == 3:
+        # Random Graph
+        myGraph = nx.fast_gnp_random_graph(myNumNodes, 2*1/myNumNodes)
+    if myGraphType == 4:
+        # Random - power Law
+        myGraph = nx.random_powerlaw_tree()
+    if myGraphType == 5:
+        # Karate club
+        myGraph = nx.karate_club_graph()
+    if myGraphType == 6:
+        # Scale Free Graph
+        myGraph = nx.scale_free_graph(myNumNodes).to_undirected()
+
+    return myGraph
+
 # Initiate the parameters of the graph
 def initGraphParam(myG,myNumRum,myThreshMax):
     for i in range(myNumRum):
-        nx.set_node_attributes(Graph, 'infected'+str(i+1), False)   # Init infection state
-        nx.set_node_attributes(Graph, 'counter'+str(i+1), 1)
+        nx.set_node_attributes(myG, 'infected'+str(i+1), False)   # Init infection state
+        nx.set_node_attributes(myG, 'counter'+str(i+1), 1)
         for j in myG.nodes():
             myG.node[j]['counter'+str(i+1)] = list()                # Generate infector list
 
-    nx.set_node_attributes(Graph, 'threshold', 1)
+    nx.set_node_attributes(myG, 'threshold', 1)
     for i in myG.nodes():
         myG.node[i]['threshold'] = random.randint(1,myThreshMax)    # Init threshold
     return myG
@@ -77,9 +104,8 @@ def drawColoredGraph(myG,myPos,myNumRum,mySources,myMonitors=None):
     nx.draw_networkx_nodes(myG, myPos, mySources, node_color='b', node_size=5)
     nx.draw_networkx_edges(myG, myPos, width=1.0,alpha=0.1)
 
-
-    plt.show()
-    return None
+    myFig = plt.figure()
+    return myFig
 
 
 def infectionForward(myG, myProba, myNumRum):
@@ -209,22 +235,22 @@ if __name__ == '__main__':
     print("Generating graph")
 
     # Small World
-    Graph = nx.watts_strogatz_graph(numNodes,5,0.2)
+    Graph = nx.watts_strogatz_graph(numNodes, 5, 0.2)
 
     # Tree
-    #Graph = nx.balanced_tree(5,3)
+    # Graph = nx.balanced_tree(5,3)
 
     # Random Graph
-    #Graph = nx.fast_gnp_random_graph(numNodes, 2*1/numNodes)
+    # Graph = nx.fast_gnp_random_graph(numNodes, 2*1/numNodes)
 
     # Random - power Law
-    #Graph = nx.random_powerlaw_tree()
+    # Graph = nx.random_powerlaw_tree()
 
-    #Karate club
-    #Graph = nx.karate_club_graph()
+    # Karate club
+    # Graph = nx.karate_club_graph()
 
-    #Scale Free Graph
-    #Graph = nx.scale_free_graph(100).to_undirected()
+    # Scale Free Graph
+    # Graph = nx.scale_free_graph(100).to_undirected()
 
     print("----- DONE")
 
