@@ -5,6 +5,8 @@
 #   for the source then combine the results.
 
 import networkx as nx
+import matplotlib
+matplotlib.use('TkAgg')
 import matplotlib.pyplot as plt
 import random
 import numpy as np
@@ -104,10 +106,10 @@ def drawColoredGraph(myG,myPos,myNumRum,mySources,myMonitors=None):
     nx.draw_networkx_nodes(myG, myPos, mySources, node_color='b', node_size=5)
     nx.draw_networkx_edges(myG, myPos, width=1.0,alpha=0.1)
 
-    plt.show()
-    #myFig = plt.figure()
-    #return myFig
-    return None
+    #plt.show()
+    myFig = plt.figure()
+    return myFig
+    #return None
 
 
 def infectionForward(myG, myProba, myNumRum):
