@@ -104,8 +104,10 @@ def drawColoredGraph(myG,myPos,myNumRum,mySources,myMonitors=None):
     nx.draw_networkx_nodes(myG, myPos, mySources, node_color='b', node_size=5)
     nx.draw_networkx_edges(myG, myPos, width=1.0,alpha=0.1)
 
-    myFig = plt.figure()
-    return myFig
+    plt.show()
+    #myFig = plt.figure()
+    #return myFig
+    return None
 
 
 def infectionForward(myG, myProba, myNumRum):
