@@ -23,18 +23,18 @@ if __name__ == '__main__':
     # Parameters definition
     numRumors = 4
     maxThreshold = 1
-    numMonitors = 3
+    numMonitors = 10
     propagProba = 1
-    numNodes = 25
+    numNodes = 50
     linkProba = 0.2
     monitorTrigger = list()
     numStep = 100
     
     Graph, Pos, rumorSources, monitorsList = generateGraphReady()
 
-    fig =  drawColoredGraph(Graph, Pos, numRumors, rumorSources, monitorsList)
+    fig1 =  drawColoredGraph(Graph, Pos, numRumors, rumorSources, monitorsList)
 
-    figureList.append(fig)
+    figureList.append(fig1)
 
     print("Starting infection")
     infections = [[] for n in range(numRumors)]
@@ -50,6 +50,8 @@ if __name__ == '__main__':
 
         Graph = infectionForward(Graph, propagProba, numRumors)
 
+    fig2 = drawColoredGraph(Graph, Pos, numRumors, rumorSources, monitorsList)
 
-    fig.show()
-    plt.show()
+    fig1.show()
+    fig2.show()
+    #plt.show()
