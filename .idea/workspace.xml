@@ -2,10 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="bdb08511-2e80-4fe7-8d85-58942b60d3a6" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Test-other.ipynb" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Test-rum-1-pr-1.ipynb" afterPath="$PROJECT_DIR$/Test-rum-1-pr-1.ipynb" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/networkUtils.py" afterPath="$PROJECT_DIR$/networkUtils.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Test-other.ipynb" afterPath="$PROJECT_DIR$/Test-other.ipynb" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -71,7 +68,7 @@
         <entry file="file://$PROJECT_DIR$/Test-other.ipynb">
           <provider selected="true" editor-type-id="ipnb-editor">
             <state>
-              <selected id="1" />
+              <selected id="4" />
             </state>
           </provider>
         </entry>
@@ -131,6 +128,7 @@
         <option value="$PROJECT_DIR$/Test Notebook.ipynb" />
         <option value="$PROJECT_DIR$/simulation.py" />
         <option value="$PROJECT_DIR$/networkUtils.py" />
+        <option value="$PROJECT_DIR$/Test-other.ipynb" />
       </list>
     </option>
   </component>
@@ -713,7 +711,7 @@
     <entry file="file://$PROJECT_DIR$/Test-other.ipynb">
       <provider selected="true" editor-type-id="ipnb-editor">
         <state>
-          <selected id="1" />
+          <selected id="4" />
         </state>
       </provider>
     </entry>
