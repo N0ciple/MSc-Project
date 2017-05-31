@@ -225,105 +225,105 @@ def findPossibleSets2(myG,mySources,myTrig,myNumRum):
 
 
 
-if __name__ == '__main__':
-    numRumors = 4
-    maxThreshold = 1
-    numMonitors = 3
-    propagProba = 0.05
-    numNodes = 200
-    monitorTrigger = list()
-    numStep = 100
-
-    print("Generating graph")
-
-    # Small World
-    Graph = nx.watts_strogatz_graph(numNodes, 5, 0.2)
-
-    # Tree
-    # Graph = nx.balanced_tree(5,3)
-
-    # Random Graph
-    # Graph = nx.fast_gnp_random_graph(numNodes, 2*1/numNodes)
-
-    # Random - power Law
-    # Graph = nx.random_powerlaw_tree()
-
-    # Karate club
-    # Graph = nx.karate_club_graph()
-
-    # Scale Free Graph
-    # Graph = nx.scale_free_graph(100).to_undirected()
-
-    print("----- DONE")
-
-    print("Getting layout")
-    pos = nx.spring_layout(Graph)
-    print("----- DONE")
-    print("Setting default attributes")
-    Graph = initGraphParam(Graph,numRumors,maxThreshold)
-
-
-    print("----- DONE")
-    print("Choosing the source")
-    Graph, rumorSources = initSourceNode(Graph,numRumors)
-    print("----- DONE")
-
-    print('Choosing the monitoring nodes')
-    Graph, monitorsList = initMonitoringNodes(Graph,numMonitors,rumorSources,numRumors)
-    print("----- DONE")
-    print('Mlist : ', monitorsList,'\nSlist : ',rumorSources)
-
-    drawColoredGraph(Graph,pos,numRumors,rumorSources,monitorsList)
-
-    print("Starting infection")
-    infections = [[] for n in range(numRumors)]
-
-    for i in range(numStep):
-        Graph = infectionForward(Graph,propagProba,numRumors)
-
-
-        for j in range(numRumors):
-            infections[j].append(100*estimateInfected(Graph,numRumors,j+1)/len(Graph))
-
-
-        for k in monitorsList :
-            for l in range(numRumors):
-                if Graph.node[k]['infected'+str(l+1)] and not Graph.node[k]['detected'+str(l+1)]:
-                    monitorTrigger.append((k,l+1,i))
-                    Graph.node[k]['detected' + str(l + 1)]=True
-
-        if i%floor(numStep*10/100) == 0 :
-            drawColoredGraph(Graph, pos,numRumors,rumorSources,monitorsList)
-            for k in range(numRumors):
-                print("Infected  by ", k+1 ,": ",100*estimateInfected(Graph,numRumors,k+1)/len(Graph),"%"," - ",estimateInfected(Graph,numRumors,k+1))
-            print('---------- step : ',i)
-
-
-    # Sort by monitoring node and by rumour index
-    monitorTrigger = sorted(monitorTrigger, key=lambda x : (x[0], x[1]))
-    #print('monitoring ', monitorTrigger)
-    print('\nMonitoring Nodes :')
-    prev = 0
-    for i in monitorTrigger:
-        if prev == 0 or i[0] != prev :
-            print('Monitoring node number : ',i[0],'\n\tinfected by rumor : ',i[1],'\tat step : ',i[2])
-            prev = i[0]
-        else :
-            print('\tinfected by rumor : ',i[1],'\tat step : ',i[2])
-            prev=i[0]
-
-
-
-
-    posSets = findPossibleSets2(Graph,rumorSources,monitorTrigger,numRumors)
-    print('possible Sets : ',posSets)
-
-    for i in range(numRumors):
-        plt.plot(infections[i], label='Rumor '+str(i+1))
-
-    plt.title('Percentage of the nodes infected for each rumor')
-    plt.legend()
-    plt.show()
+# if __name__ == '__main__':
+#     numRumors = 4
+#     maxThreshold = 1
+#     numMonitors = 3
+#     propagProba = 0.05
+#     numNodes = 200
+#     monitorTrigger = list()
+#     numStep = 100
+#
+#     print("Generating graph")
+#
+#     # Small World
+#     Graph = nx.watts_strogatz_graph(numNodes, 5, 0.2)
+#
+#     # Tree
+#     # Graph = nx.balanced_tree(5,3)
+#
+#     # Random Graph
+#     # Graph = nx.fast_gnp_random_graph(numNodes, 2*1/numNodes)
+#
+#     # Random - power Law
+#     # Graph = nx.random_powerlaw_tree()
+#
+#     # Karate club
+#     # Graph = nx.karate_club_graph()
+#
+#     # Scale Free Graph
+#     # Graph = nx.scale_free_graph(100).to_undirected()
+#
+#     print("----- DONE")
+#
+#     print("Getting layout")
+#     pos = nx.spring_layout(Graph)
+#     print("----- DONE")
+#     print("Setting default attributes")
+#     Graph = initGraphParam(Graph,numRumors,maxThreshold)
+#
+#
+#     print("----- DONE")
+#     print("Choosing the source")
+#     Graph, rumorSources = initSourceNode(Graph,numRumors)
+#     print("----- DONE")
+#
+#     print('Choosing the monitoring nodes')
+#     Graph, monitorsList = initMonitoringNodes(Graph,numMonitors,rumorSources,numRumors)
+#     print("----- DONE")
+#     print('Mlist : ', monitorsList,'\nSlist : ',rumorSources)
+#
+#     drawColoredGraph(Graph,pos,numRumors,rumorSources,monitorsList)
+#
+#     print("Starting infection")
+#     infections = [[] for n in range(numRumors)]
+#
+#     for i in range(numStep):
+#         Graph = infectionForward(Graph,propagProba,numRumors)
+#
+#
+#         for j in range(numRumors):
+#             infections[j].append(100*estimateInfected(Graph,numRumors,j+1)/len(Graph))
+#
+#
+#         for k in monitorsList :
+#             for l in range(numRumors):
+#                 if Graph.node[k]['infected'+str(l+1)] and not Graph.node[k]['detected'+str(l+1)]:
+#                     monitorTrigger.append((k,l+1,i))
+#                     Graph.node[k]['detected' + str(l + 1)]=True
+#
+#         if i%floor(numStep*10/100) == 0 :
+#             drawColoredGraph(Graph, pos,numRumors,rumorSources,monitorsList)
+#             for k in range(numRumors):
+#                 print("Infected  by ", k+1 ,": ",100*estimateInfected(Graph,numRumors,k+1)/len(Graph),"%"," - ",estimateInfected(Graph,numRumors,k+1))
+#             print('---------- step : ',i)
+#
+#
+#     # Sort by monitoring node and by rumour index
+#     monitorTrigger = sorted(monitorTrigger, key=lambda x : (x[0], x[1]))
+#     #print('monitoring ', monitorTrigger)
+#     print('\nMonitoring Nodes :')
+#     prev = 0
+#     for i in monitorTrigger:
+#         if prev == 0 or i[0] != prev :
+#             print('Monitoring node number : ',i[0],'\n\tinfected by rumor : ',i[1],'\tat step : ',i[2])
+#             prev = i[0]
+#         else :
+#             print('\tinfected by rumor : ',i[1],'\tat step : ',i[2])
+#             prev=i[0]
+#
+#
+#
+#
+#     posSets = findPossibleSets2(Graph,rumorSources,monitorTrigger,numRumors)
+#     print('possible Sets : ',posSets)
+#
+#     for i in range(numRumors):
+#         plt.plot(infections[i], label='Rumor '+str(i+1))
+#
+#     plt.title('Percentage of the nodes infected for each rumor')
+#     plt.legend()
+#     plt.show()
 
 
 
