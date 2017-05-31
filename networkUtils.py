@@ -4,11 +4,11 @@
 # - Dikjjtra algorithm to find candidate
 #   for the source then combine the results.
 
-import networkx as nx
 import matplotlib.pyplot as plt
+import networkx as nx
+plt.figure(figsize=(100,100))
 import random
 import numpy as np
-from math import floor
 
 
 def generateGraph(myNumNodes,myLinkProba,myGraphType):
@@ -103,11 +103,27 @@ def drawColoredGraph(myG,myPos,myNumRum,mySources,myMonitors=None):
     nx.draw_networkx_nodes(myG, myPos, notInfect, node_color='g', node_size=5)
     nx.draw_networkx_nodes(myG, myPos, mySources, node_color='b', node_size=5)
     nx.draw_networkx_edges(myG, myPos, width=1.0,alpha=0.1)
+    plt.show(block=False)
+    myFig = plt.figure()
+    return myFig
+    #return None
 
-    plt.show()
-    #myFig = plt.figure()
-    #return myFig
-    return None
+
+def drawColoredGraph2(myG,myPos,myNumRum,mySources,myMonitors,myDetected):
+    infect, notInfect = colorList(myG,myNumRum)
+    nx.draw_networkx_nodes(myG, myPos, infect, node_color='r', node_size=15)
+    nx.draw_networkx_nodes(myG, myPos, notInfect, node_color='g', node_size=5)
+    nx.draw_networkx_nodes(myG, myPos, myMonitors, node_color='c', node_size=40)
+    nx.draw_networkx_nodes(myG, myPos, myDetected, node_color='y', node_size=50)
+    nx.draw_networkx_nodes(myG, myPos, mySources, node_color='b', node_size=5)
+    nx.draw_networkx_edges(myG, myPos, width=1.0,alpha=0.1)
+    plt.show(block=False)
+    myFig = plt.figure()
+    return myFig
+    #return None
+
+
+
 
 
 def infectionForward(myG, myProba, myNumRum):
@@ -143,6 +159,16 @@ def getInfectedList (myG,myNumRum):
     infected = list(set(infected))
 
     return infected
+
+def isAllInfected(myG,myNumRum):
+    myBool = True
+    for j in range(myNumRum):
+        for i in myG.nodes():
+            if not myG.node[i]['infected'+str(j+1)]:
+                myBool = False
+    return myBool
+
+
 
 def estimateInfected(myG,myNumRum,myRumId):
     counter = 0
