@@ -95,7 +95,7 @@ def colorList(myG,myNumRum):
     return infected, notInfected
 
 
-def drawColoredGraph(myG,myPos,myNumRum,mySources,myMonitors=None):
+def drawColoredGraph(myG,myPos,myNumRum,mySources,myMonitors=None,myIndex=None):
     infect, notInfect = colorList(myG,myNumRum)
     if myMonitors != None:
         nx.draw_networkx_nodes(myG, myPos, myMonitors, node_color='c', node_size=40)
@@ -103,10 +103,12 @@ def drawColoredGraph(myG,myPos,myNumRum,mySources,myMonitors=None):
     nx.draw_networkx_nodes(myG, myPos, notInfect, node_color='g', node_size=5)
     nx.draw_networkx_nodes(myG, myPos, mySources, node_color='b', node_size=5)
     nx.draw_networkx_edges(myG, myPos, width=1.0,alpha=0.1)
-    plt.show(block=False)
-    myFig = plt.figure()
-    return myFig
-    #return None
+    #myFig = plt.figure()
+    if myIndex != None:
+        plt.savefig('./TestFigs/figT' + str(myIndex) + '.png')
+    plt.show()
+    #return myFig
+    return None
 
 
 def drawColoredGraph2(myG,myPos,myNumRum,mySources,myMonitors,myDetected):
@@ -117,10 +119,11 @@ def drawColoredGraph2(myG,myPos,myNumRum,mySources,myMonitors,myDetected):
     nx.draw_networkx_nodes(myG, myPos, myDetected, node_color='y', node_size=50)
     nx.draw_networkx_nodes(myG, myPos, mySources, node_color='b', node_size=5)
     nx.draw_networkx_edges(myG, myPos, width=1.0,alpha=0.1)
-    plt.show(block=False)
-    myFig = plt.figure()
-    return myFig
-    #return None
+    #myFig = plt.figure()
+    plt.savefig('./TestFigs/figEnd.png')
+    plt.show()
+    #return myFig
+    return None
 
 
 
