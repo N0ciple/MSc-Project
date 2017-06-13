@@ -171,8 +171,6 @@ def isAllInfected(myG,myNumRum):
                 myBool = False
     return myBool
 
-
-
 def estimateInfected(myG,myNumRum,myRumId):
     counter = 0
 
