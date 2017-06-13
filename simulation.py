@@ -48,49 +48,51 @@ def findSet(myG,mySourceNode,myRadius):
     return  curSet
 
 
-#
-#
-# if __name__ == '__main__':
-#
-#     figureList = list()
-#     # Parameters definition
-#     numRumors = 4
-#     maxThreshold = 1
-#     numMonitors = 10
-#     propagProba = 1
-#     numNodes = 50
-#     linkProba = 0.2
-#     monitorTrigger = list()
-#     numStep = 100
-#
-#
-#
-#     Graph, Pos, rumorSources, monitorsList = generateGraphReady(numNodes,linkProba,maxThreshold,numRumors,numMonitors)
-#
-#     fig1 =  drawColoredGraph(Graph, Pos, numRumors, rumorSources, monitorsList)
-#
-#     figureList.append(fig1)
-#
-#     print("Starting infection")
-#     infections = [[] for n in range(numRumors)]
-#
-#
-#
-#     for j in range(5):
-#         print("====================================================\n\n\n\n\n\n\n\n====================================================")
-#
-#         for i in Graph.nodes():
-#             if i in monitorsList:
-#                 print("Node ",str(i),"\t",Graph.node[i])
-#
-#         Graph = infectionForward(Graph, propagProba, numRumors)
-#
-#         monitorTrigger = updateMonitorTrig(j,monitorTrigger,monitorsList,Graph,numRumors)
-#
-#         print(monitorTrigger)
-#         printMonitorTrig(monitorTrigger)
-#
-#         fig2 = drawColoredGraph(Graph, Pos, numRumors, rumorSources, monitorsList)
-#         fig2.show()
-#     plt.show()
-#
+
+
+
+
+if __name__ == '__main__':
+
+    figureList = list()
+    # Parameters definition
+    numRumors = 4
+    maxThreshold = 1
+    numMonitors = 10
+    propagProba = 1
+    numNodes = 50
+    linkProba = 0.2
+    monitorTrigger = list()
+    numStep = 100
+
+
+
+    Graph, Pos, rumorSources, monitorsList = generateGraphReady(numNodes,linkProba,maxThreshold,numRumors,numMonitors)
+
+    fig1 =  drawColoredGraph(Graph, Pos, numRumors, rumorSources, monitorsList)
+
+    figureList.append(fig1)
+
+    print("Starting infection")
+    infections = [[] for n in range(numRumors)]
+
+
+
+    for j in range(5):
+        print("====================================================\n\n\n\n\n\n\n\n====================================================")
+
+        for i in Graph.nodes():
+            if i in monitorsList:
+                print("Node ",str(i),"\t",Graph.node[i])
+
+        Graph = infectionForward(Graph, propagProba, numRumors)
+
+        monitorTrigger = updateMonitorTrig(j,monitorTrigger,monitorsList,Graph,numRumors)
+
+        print(monitorTrigger)
+        printMonitorTrig(monitorTrigger)
+
+        fig2 = drawColoredGraph(Graph, Pos, numRumors, rumorSources, monitorsList)
+        #fig2.show()
+    plt.show()
+
