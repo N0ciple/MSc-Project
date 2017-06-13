@@ -144,6 +144,14 @@ def getInfectedList (myG,myNumRum):
 
     return infected
 
+def isAllInfected(myG,myNumRum):
+    myBool = True
+    for j in range(myNumRum):
+        for i in myG.nodes():
+            if not myG.node[i]['infected'+str(j+1)]:
+                myBool = False
+    return myBool
+
 def estimateInfected(myG,myNumRum,myRumId):
     counter = 0
 
