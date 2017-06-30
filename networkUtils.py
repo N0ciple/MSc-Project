@@ -152,6 +152,29 @@ def infectionForward(myG, myProba, myNumRum):
     return myG2
 
 
+def infectionForwardSingle(myG, myProba, myNumRum):
+    myG2 = myG
+
+    for k in range(myNumRum):
+        for i in myG.nodes():
+            if myG.node[i]['infected'+str(k+1)]:
+                neiList = myG.neighbors(i)
+                # print('node ',i,' neighbors = ',neiList)
+                j = random.choice(neiList)
+                if random.random() < myProba:
+                    myG2.node[j]['counter'+str(k+1)].append(i)
+                    # print(myG2.node[j]['counter' + str(k + 1)])
+                    myG2.node[j]['counter' + str(k + 1)] = list(set(myG2.node[j]['counter'+str(k+1)]))
+                    # print(myG2.node[j]['counter' + str(k + 1)])
+        for l in myG2.nodes():
+            if len(myG2.node[l]['counter'+str(k+1)]) >= myG2.node[l]['threshold']:
+                # print('debug node ',l,'rumor : ',k,' counter : ', myG2.node[l]['counter'+str(k+1)], ' th : ',myG2.node[l]['threshold'])
+                # print('infectors for ',l, ' = ',myG2.node[l]['counter'+str(k+1)])
+                myG2.node[l]['infected' + str(k + 1)] = True
+
+    return myG2
+
+
 def getInfectedList (myG,myNumRum):
 
     infected = []
