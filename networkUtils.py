@@ -1,14 +1,16 @@
 # TO DO :
 # DONE - fix the counter/threshold
 # DONE - 1 source for all the rumors
-# - Dikjjtra algorithm to find candidate
+# DONE - Dikjjtra algorithm to find candidate
 #   for the source then combine the results.
 
 import matplotlib.pyplot as plt
 import networkx as nx
-plt.figure(figsize=(100,100))
+plt.figure(figsize=(300,300))
 import random
 import numpy as np
+from scipy.special import comb
+
 
 
 def generateGraph(myNumNodes,myLinkProba,myGraphType):
@@ -278,6 +280,26 @@ def findPossibleSets2(myG,mySources,myTrig,myNumRum):
     return posList
 
 
+def findSet2(myG, myCenterNode, myMaxDeg):
+    # Based on set intersection (not circle)
+    curSet = set()
+    curDeg = myMaxDeg
+    while (curDeg > 0):
+        tempoSet = set(findNeighDegN(myG, myCenterNode, curDeg))
+        curSet = curSet.union(tempoSet)
+        curDeg -= 1
+    return curSet
+
+
+def calculProba(myPropagProba, myDist, mySteps):
+    # Compute the probability of a node at k steps of the source  being infected by step n
+    p = myPropagProba
+    k = myDist
+    n = mySteps
+    result = 0
+    for i in range(0, n - k + 1):
+        result += comb(k + i - 1, i, exact=True) * pow(p, k) * pow(1 - p, i)
+    return result
 
 
 # if __name__ == '__main__':
