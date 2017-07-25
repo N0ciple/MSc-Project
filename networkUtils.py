@@ -115,14 +115,15 @@ def drawColoredGraph2(myG,myPos,myNumRum,mySources,myMonitors,myDetected):
     infect, notInfect = colorList(myG,myNumRum)
     labs = {}
     for node in myG.nodes():
-        labs[node]=node
+        if node in myDetected:
+            labs[node]=node
     nx.draw_networkx_nodes(myG, myPos, infect, node_color='r', node_size=15)
     nx.draw_networkx_nodes(myG, myPos, notInfect, node_color='g', node_size=5)
     nx.draw_networkx_nodes(myG, myPos, myMonitors, node_color='c', node_size=40)
     nx.draw_networkx_nodes(myG, myPos, myDetected, node_color='y', node_size=50)
     nx.draw_networkx_nodes(myG, myPos, mySources, node_color='b', node_size=5)
     nx.draw_networkx_edges(myG, myPos, width=1.0,alpha=0.1)
-    #nx.draw_networkx_labels(myG, pos=myPos,labels=labs)
+    nx.draw_networkx_labels(myG, pos=myPos,labels=labs)
     #myFig = plt.figure()
     plt.savefig('./TestFigs/figEnd.png')
     plt.show()
