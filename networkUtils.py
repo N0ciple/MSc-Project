@@ -6,7 +6,7 @@
 
 import matplotlib.pyplot as plt
 import networkx as nx
-plt.figure(figsize=(300,300))
+#plt.figure(figsize=(300,300))
 import random
 import numpy as np
 from scipy.special import comb
