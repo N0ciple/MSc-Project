@@ -75,7 +75,34 @@ for monitor in monitorsList:
     HistoDict[monitor] = np.cumsum(HistoDict[monitor]) / numRumors
 
 
-################ STEP 2
+
+
+
+
+
+
+
+################ STEP 3
+    # Find all possible candidates based on set intersections
+
+
+setList = []
+
+for i in monitorTrigger:
+    nodeSet = findSet2(Graph, i[0], i[2])
+    setList.append(nodeSet)
+
+finalSet = set.intersection(*setList)
+print("Real Source = ", rumorSources[0])
+print("Detected Source = ", list(finalSet))
+finalList = list(finalSet)
+
+
+
+
+
+
+################ STEP 4
     # Create the histogram for each monitoring node, for each possible source
     # i.e. Step 1: the whole graph, Step 2: only the possible sources determined with set intersection.
 
@@ -90,7 +117,7 @@ for monitor in monitorsList:
     sourceHisto = {}
     monitorToTest = monitor
 
-    for source in Graph.nodes():
+    for source in finalList:
         if source not in monitorsList :
             sourceHisto[source]=np.zeros((maxStep+1,1))
             for i in range(0,maxStep+1):
@@ -99,14 +126,13 @@ for monitor in monitorsList:
 
 
 
-################ STEP 2
+################ STEP 5
     # Compute scores
-
 
     dList = []
     dListChi = []
 
-    for i in Graph.nodes():
+    for i in finalList:
         if i not in monitorsList:
             # plt.bar(range(0,maxStep+1),sourceHisto[i])
             # plt.show()
@@ -115,13 +141,13 @@ for monitor in monitorsList:
             dList.append((i, d))
             dListChi.append((i, d2))
             # print("Dist =",d)
-
     dListSorted = sorted(dList, key=lambda x: x[1])
     dListChiSorted = sorted(dListChi, key=lambda x: x[1])
 
     classement = [v[0] for v in dListSorted]
     classementChi = [v[0] for v in dListChiSorted]
 
+    print(rumorSources)
     scoreL2.append(classement.index(rumorSources[0]))
     scoreChi2.append(classementChi.index(rumorSources[0]))
 
