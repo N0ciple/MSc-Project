@@ -157,8 +157,12 @@ def runHistoSimulation(myI, myProba) :
         classementChi = [v[0] for v in dListChiSorted]
 
         ##print(rumorSources)
-        scoreL2.append(classement.index(rumorSources[0]))
-        scoreChi2.append(classementChi.index(rumorSources[0]))
+        try :
+            scoreL2.append(classement.index(rumorSources[0]))
+            scoreChi2.append(classementChi.index(rumorSources[0]))
+        except:
+            scoreL2.append(0)
+            scoreChi2.append(0)
 
         #print("classment de la source (L2) ", classement.index(rumorSources[0]))
         #print("\tclassment de la source (Chi) ", classementChi.index(rumorSources[0]))
