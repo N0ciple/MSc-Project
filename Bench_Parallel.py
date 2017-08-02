@@ -11,29 +11,22 @@ if __name__ == '__main__':
     if os.name == 'nt':
         toaster = ToastNotifier()
 
-    probas = [0.2,0.3,0.5,0.7,0.9]
+
+    proba = 0.2
 
     num_cores = multiprocessing.cpu_count()
 
     print("Starting benchmarking on ",num_cores," cores")
 
-    for proba in probas:
+    inputs = range(0,20)
 
-        inputs = range(0,20)
+    results = Parallel(n_jobs=num_cores)(delayed(runHistoSimulation)(i,proba) for i in inputs)
 
-        results = Parallel(n_jobs=num_cores)(delayed(runHistoSimulation)(i,proba) for i in inputs)
+    scoreL2 = [v[0] for v in results]
+    scoreChi2 = [v[1] for v in results]
 
-        scoreL2 = [v[0] for v in results]
-        scoreChi2 = [v[1] for v in results]
-    
-        print("\nGlobal Score for L2 : ",np.mean(scoreL2))
-        print("Global Score for Chi2 : ",np.mean(scoreChi2))
-
-        with open('results.txt','a') as f:
-            f.write("\nProba = "+str(proba)+"\n\tGlobal Score for L2 : " + str(np.mean(scoreL2)) +"\n\tGlobal Score for Chi2 : " + str(np.mean(scoreChi2)))
-
-
-
+    print("\nGlobal Score for L2 : ",np.mean(scoreL2))
+    print("Global Score for Chi2 : ",np.mean(scoreChi2))
 
     if os.name == 'nt':
         toaster.show_toast("Simulation Over",
