@@ -29,12 +29,12 @@ def runHistoSimulation(myI, myProba) :
         # Generate an graph with rumor spread
 
     # Parameters definition
-    numRumors = 10
+    numRumors = 20
     maxThreshold = 1
     numMonitors = 50
     propagProba = myProba
     numNodes = 500
-    linkProba = 0.2
+    linkProba = 0.3
     monitorTrigger = list()
     numStep = 100
 
@@ -160,12 +160,13 @@ def runHistoSimulation(myI, myProba) :
         try :
             scoreL2.append(classement.index(rumorSources[0]))
             scoreChi2.append(classementChi.index(rumorSources[0]))
+            #print("classment de la source (L2) ", classement.index(rumorSources[0]))
+            #print("\tclassment de la source (Chi) ", classementChi.index(rumorSources[0]))
         except:
             scoreL2.append(0)
             scoreChi2.append(0)
+            print("################ERROR################")
 
-        #print("classment de la source (L2) ", classement.index(rumorSources[0]))
-        #print("\tclassment de la source (Chi) ", classementChi.index(rumorSources[0]))
 
     print("\n\n=====================\nscore moyen L2", np.mean(scoreL2))
     print("score moyen Chi2",np.mean(scoreChi2))

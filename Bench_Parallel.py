@@ -13,7 +13,7 @@ if __name__ == '__main__':
     if os.name == 'nt':
         toaster = ToastNotifier()
 
-    probas = [0.2,0.3,0.5,0.7,0.9]
+    probas = [0.2]
 
     num_cores = multiprocessing.cpu_count()
 
@@ -21,9 +21,9 @@ if __name__ == '__main__':
 
     for proba in probas:
 
-        inputs = range(0,int(sys.argv[1]))
+        inputs = range(0,10)
 
-        results = Parallel(n_jobs=num_cores)(delayed(runHistoSimulation)(i,proba) for i in inputs)
+        results = Parallel(n_jobs=num_cores-1)(delayed(runHistoSimulation)(i,proba) for i in inputs)
 
         scoreL2 = [v[0] for v in results]
         scoreChi2 = [v[1] for v in results]

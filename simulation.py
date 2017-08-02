@@ -4,7 +4,7 @@ from networkUtils import *
 def generateGraphReady(myNumNodes,myLinkProba,myMaxThreshold,myNumRumors,myNumMonitors,):
     # mGraph generation
     print("Generating mGraph")
-    mGraph = generateGraph(myNumNodes, myLinkProba, 1)
+    mGraph = generateGraph(myNumNodes, myLinkProba, 5)
     print("----- DONE\nGetting layout")
     pos = nx.spring_layout(mGraph)
     print("----- DONE\nSetting default attributes")

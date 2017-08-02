@@ -22,7 +22,7 @@ def generateGraph(myNumNodes,myLinkProba,myGraphType):
 
     if myGraphType == 1:
         # Small World
-        myGraph = nx.watts_strogatz_graph(myNumNodes, 5, 0.2)
+        myGraph = nx.watts_strogatz_graph(myNumNodes, 3, myLinkProba)
     if myGraphType == 2:
         # Tree
         myGraph = nx.balanced_tree(5,3)
@@ -31,7 +31,7 @@ def generateGraph(myNumNodes,myLinkProba,myGraphType):
         myGraph = nx.fast_gnp_random_graph(myNumNodes, 2*1/myNumNodes)
     if myGraphType == 4:
         # Random - power Law
-        myGraph = nx.random_powerlaw_tree()
+        myGraph = nx.random_powerlaw_tree(myNumNodes)
     if myGraphType == 5:
         # Karate club
         myGraph = nx.karate_club_graph()
