@@ -13,6 +13,8 @@ import numpy as np
 from scipy.special import comb
 
 
+node_size_param = 10
+
 
 def generateGraph(myNumNodes,myLinkProba,myGraphType):
 
@@ -22,7 +24,7 @@ def generateGraph(myNumNodes,myLinkProba,myGraphType):
 
     if myGraphType == 1:
         # Small World
-        myGraph = nx.watts_strogatz_graph(myNumNodes, 3, myLinkProba)
+        myGraph = nx.watts_strogatz_graph(myNumNodes, 5, myLinkProba)
     if myGraphType == 2:
         # Tree
         myGraph = nx.balanced_tree(5,3)
@@ -101,10 +103,10 @@ def colorList(myG,myNumRum):
 def drawColoredGraph(myG,myPos,myNumRum,mySources,myMonitors=None,myIndex=None):
     infect, notInfect = colorList(myG,myNumRum)
     if myMonitors != None:
-        nx.draw_networkx_nodes(myG, myPos, myMonitors, node_color='c', node_size=40)
-    nx.draw_networkx_nodes(myG, myPos, infect, node_color='r', node_size=15)
-    nx.draw_networkx_nodes(myG, myPos, notInfect, node_color='g', node_size=5)
-    nx.draw_networkx_nodes(myG, myPos, mySources, node_color='b', node_size=5)
+        nx.draw_networkx_nodes(myG, myPos, myMonitors, node_color='c', node_size=40*node_size_param)
+    nx.draw_networkx_nodes(myG, myPos, infect, node_color='r', node_size=15*node_size_param)
+    nx.draw_networkx_nodes(myG, myPos, notInfect, node_color='g', node_size=5*node_size_param)
+    nx.draw_networkx_nodes(myG, myPos, mySources, node_color='b', node_size=5*node_size_param)
     nx.draw_networkx_edges(myG, myPos, width=1.0,alpha=0.1)
     #myFig = plt.figure()
     if myIndex != None:
@@ -120,11 +122,11 @@ def drawColoredGraph2(myG,myPos,myNumRum,mySources,myMonitors,myDetected):
     for node in myG.nodes():
         if node in myDetected:
             labs[node]=node
-    nx.draw_networkx_nodes(myG, myPos, infect, node_color='r', node_size=15)
-    nx.draw_networkx_nodes(myG, myPos, notInfect, node_color='g', node_size=5)
-    nx.draw_networkx_nodes(myG, myPos, myMonitors, node_color='c', node_size=40)
-    nx.draw_networkx_nodes(myG, myPos, myDetected, node_color='y', node_size=50)
-    nx.draw_networkx_nodes(myG, myPos, mySources, node_color='b', node_size=5)
+    nx.draw_networkx_nodes(myG, myPos, infect, node_color='r', node_size=15*node_size_param)
+    nx.draw_networkx_nodes(myG, myPos, notInfect, node_color='g', node_size=5*node_size_param)
+    nx.draw_networkx_nodes(myG, myPos, myMonitors, node_color='c', node_size=40*node_size_param)
+    nx.draw_networkx_nodes(myG, myPos, myDetected, node_color='y', node_size=50*node_size_param)
+    nx.draw_networkx_nodes(myG, myPos, mySources, node_color='b', node_size=5*node_size_param)
     nx.draw_networkx_edges(myG, myPos, width=1.0,alpha=0.1)
     nx.draw_networkx_labels(myG, pos=myPos,labels=labs)
     #myFig = plt.figure()
