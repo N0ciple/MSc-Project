@@ -2,6 +2,8 @@ from benchmark_histo import *
 from joblib import Parallel, delayed
 import multiprocessing
 import os
+import sys
+
 
 if os.name == 'nt' :
     from win10toast import ToastNotifier
@@ -19,7 +21,7 @@ if __name__ == '__main__':
 
     for proba in probas:
 
-        inputs = range(0,20)
+        inputs = range(0,sys.argv[0])
 
         results = Parallel(n_jobs=num_cores)(delayed(runHistoSimulation)(i,proba) for i in inputs)
 
