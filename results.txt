@@ -35,3 +35,12 @@ Proba = 0.2
 Proba = 0.2
 	Global Score for L2 : 0.034
 	Global Score for Chi2 : 0.032
+Proba = 0.2
+	Global Score for L2 : 3.02
+	Global Score for Chi2 : 3.274
+Proba = 0.5
+	Global Score for L2 : 0.062
+	Global Score for Chi2 : 0.068
+Proba = 0.4
+	Global Score for L2 : 0.0
+	Global Score for Chi2 : 0.0

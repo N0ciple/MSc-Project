@@ -118,6 +118,7 @@ def runHistoSimulation(myI, myProba) :
 
     #Benchmarking of the metrics
 
+    detectedList =[]
     scoreL2 = []
     scoreChi2 = []
 
@@ -160,6 +161,10 @@ def runHistoSimulation(myI, myProba) :
         try :
             scoreL2.append(classement.index(rumorSources[0]))
             scoreChi2.append(classementChi.index(rumorSources[0]))
+            if classement.index(rumorSources[0]) == 0 :
+                detectedList.append(1)
+            else:
+                detectedList.append(0)
             #print("classment de la source (L2) ", classement.index(rumorSources[0]))
             #print("\tclassment de la source (Chi) ", classementChi.index(rumorSources[0]))
         except:
@@ -167,11 +172,11 @@ def runHistoSimulation(myI, myProba) :
             scoreChi2.append(0)
             print("################ERROR################")
 
-
+    moyProba = np.mean(detectedList)
     print("\n\n=====================\nscore moyen L2", np.mean(scoreL2))
     print("score moyen Chi2",np.mean(scoreChi2))
-
+    print("Detection Proba : ",moyProba)
     print("Simulation ",myI, "done")
 
-    return (np.mean(scoreL2),np.mean(scoreChi2))
+    return (np.mean(scoreL2),np.mean(scoreChi2),moyProba)
 
