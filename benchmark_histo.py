@@ -1,4 +1,5 @@
 from simulation import *
+from detectionUtils import *
 from scipy.special import comb
 import os
 if os.name =='nt':
@@ -58,125 +59,20 @@ def runHistoSimulation(myI, myProba) :
     monitorTrigger2 = sorted(monitorTrigger, key=lambda x: (x[0], x[2]))
 
 
+    HistoDict,maxStep = createHistoForMonitor(monitorTrigger2,monitorsList,numRumors)
 
 
+    finalList = findAllPossibleCandidates(monitorTrigger,Graph)
 
+    DictOfPossibleHistPerMonitor = dictOfHistoForPossibleSourcesPerMonitor(monitorsList, finalList, maxStep, propagProba, Graph)
 
-    ################ STEP 2
-        # Create the histogram of rumor reception step for each monitoring node
+    scoreL2, scoreChi2 = computeScores(finalList, monitorsList, DictOfPossibleHistPerMonitor, HistoDict, rumorSources)
 
+    print("Score L2 : ", scoreL2," score chi2 : ",scoreChi2)
 
-    # Find the maximum number of steps :
-    maxStep = -1
-    for step in monitorTrigger2:
-        if step[2] > maxStep:
-            maxStep = step[2]
-
-    # create array for each monitoring node
-    HistoDict = dict()
-
-    # Fill in the array
-    for monitor in monitorsList:
-        HistoDict[monitor] = np.zeros((maxStep + 1, 1))
-        for elem in monitorTrigger2:
-            if monitor == elem[0]:
-                HistoDict[monitor][elem[2]] += 1
-        HistoDict[monitor] = np.cumsum(HistoDict[monitor]) / numRumors
-
-
-
-
-
-
-
-
-
-    ################ STEP 3
-        # Find all possible candidates based on set intersections
-
-
-    setList = []
-
-    for i in monitorTrigger:
-        nodeSet = findSet2(Graph, i[0], i[2])
-        setList.append(nodeSet)
-
-    finalSet = set.intersection(*setList)
-    ##print("Real Source = ", rumorSources[0])
-    ##print("Detected Source = ", list(finalSet))
-    finalList = list(finalSet)
-
-
-
-
-
-
-    ################ STEP 4
-        # Create the histogram for each monitoring node, for each possible source
-        # i.e. Step 1: the whole graph, Step 2: only the possible sources determined with set intersection.
-
-
-    #Benchmarking of the metrics
-
-    detectedList =[]
-    scoreL2 = []
-    scoreChi2 = []
-
-    DictOfPossibleHistPerMonitor = {}
-    for monitor in monitorsList:
-        sourceHisto = {}
-        monitorToTest = monitor
-
-        for source in finalList:
-            if source not in monitorsList :
-                sourceHisto[source]=np.zeros((maxStep+1,1))
-                for i in range(0,maxStep+1):
-                    sourceHisto[source][i] = calculProba(propagProba,len(nx.shortest_path(Graph,source,monitorToTest))-1,i)
-        DictOfPossibleHistPerMonitor[monitor] = sourceHisto
-
-
-
-    ################ STEP 5
-        # Compute scores
-
-        dList = []
-        dListChi = []
-
-        for i in finalList:
-            if i not in monitorsList:
-                # plt.bar(range(0,maxStep+1),sourceHisto[i])
-                # plt.show()
-                d = np.linalg.norm(sourceHisto[i] - HistoDict[monitorToTest])
-                d2 = chiDist(sourceHisto[i], np.transpose(HistoDict[monitorToTest][np.newaxis]))
-                dList.append((i, d))
-                dListChi.append((i, d2))
-                # print("Dist =",d)
-        dListSorted = sorted(dList, key=lambda x: x[1])
-        dListChiSorted = sorted(dListChi, key=lambda x: x[1])
-
-        classement = [v[0] for v in dListSorted]
-        classementChi = [v[0] for v in dListChiSorted]
-
-        ##print(rumorSources)
-        try :
-            scoreL2.append(classement.index(rumorSources[0]))
-            scoreChi2.append(classementChi.index(rumorSources[0]))
-            if classement.index(rumorSources[0]) == 0 :
-                detectedList.append(1)
-            else:
-                detectedList.append(0)
-            #print("classment de la source (L2) ", classement.index(rumorSources[0]))
-            #print("\tclassment de la source (Chi) ", classementChi.index(rumorSources[0]))
-        except:
-            scoreL2.append(0)
-            scoreChi2.append(0)
-            print("################ERROR################")
-
-    moyProba = np.mean(detectedList)
-    print("\n\n=====================\nscore moyen L2", np.mean(scoreL2))
-    print("score moyen Chi2",np.mean(scoreChi2))
-    print("Detection Proba : ",moyProba)
     print("Simulation ",myI, "done")
 
-    return (np.mean(scoreL2),np.mean(scoreChi2),moyProba)
 
+
+if __name__ == '__main__':
+    runHistoSimulation(1, 0.2)
