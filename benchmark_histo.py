@@ -1,6 +1,8 @@
 from simulation import *
 from scipy.special import comb
-import matplotlib.pyplot as plt
+import os
+if os.name =='nt':
+    import matplotlib.pyplot as plt
 import numpy as np
 
 
