@@ -3,8 +3,9 @@
 # DONE - 1 source for all the rumors
 # DONE - Dikjjtra algorithm to find candidate
 #   for the source then combine the results.
-
-import matplotlib.pyplot as plt
+import os
+if os.name == 'nt' :
+    import matplotlib.pyplot as plt
 import networkx as nx
 #plt.figure(figsize=(300,300))
 import random
