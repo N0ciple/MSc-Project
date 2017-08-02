@@ -1,11 +1,15 @@
 from benchmark_histo import *
 from joblib import Parallel, delayed
 import multiprocessing
-from win10toast import ToastNotifier
+import os
+
+if os.name == 'nt' :
+    from win10toast import ToastNotifier
 
 
 if __name__ == '__main__':
-    toaster = ToastNotifier()
+    if os.name == 'nt':
+        toaster = ToastNotifier()
 
 
     proba = 0.2
@@ -24,6 +28,7 @@ if __name__ == '__main__':
     print("\nGlobal Score for L2 : ",np.mean(scoreL2))
     print("Global Score for Chi2 : ",np.mean(scoreChi2))
 
-    toaster.show_toast("Simulation Over",
+    if os.name == 'nt':
+        toaster.show_toast("Simulation Over",
                        "P: "+str(proba)+" L2: "+str(np.mean(scoreL2))+" Chi2: "+str(np.mean(scoreChi2)),
                        duration=60)
