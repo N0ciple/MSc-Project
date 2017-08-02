@@ -27,7 +27,7 @@ if __name__ == '__main__':
 
         scoreL2 = [v[0] for v in results]
         scoreChi2 = [v[1] for v in results]
-    
+
         print("\nGlobal Score for L2 : ",np.mean(scoreL2))
         print("Global Score for Chi2 : ",np.mean(scoreChi2))
 
