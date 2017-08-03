@@ -35,6 +35,7 @@ if __name__ == '__main__':
         # Compute proba of detection
 
         probaDetectL2 = []
+        probaDetectChi2 = []
 
         for score in scoreL2 :
             if score == 0 :
@@ -44,11 +45,21 @@ if __name__ == '__main__':
 
         moyProba = np.mean(probaDetectL2)
 
-        print("All proba ", probaDetectL2)
-        print("Global Proba : ",moyProba)
+
+        for score in scoreChi2:
+            if score == 0:
+                probaDetectChi2.append(1)
+            else:
+                probaDetectChi2.append(0)
+
+        moyProbaChi2 = np.mean(probaDetectChi2)
+
+        print("All proba L2", probaDetectL2)
+        print("Global Proba L2: ",moyProba)
+        print("Global Proba Chi2: ",moyProbaChi2)
 
         with open('results.txt','a') as f:
-            f.write("\nProba = "+str(proba)+"\n\tGlobal Score for L2 : " + str(np.mean(scoreL2)) +"\n\tGlobal Score for Chi2 : " + str(np.mean(scoreChi2)))
+            f.write("\nProba = "+str(proba)+"\n\tGlobal Score for L2 : " + str(np.mean(scoreL2)) +"\n\tGlobal Score for Chi2 : " + str(np.mean(scoreChi2)) + "\n\tProba Detect L2 " + str(probaDetectL2) )
 
 
 
