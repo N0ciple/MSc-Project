@@ -134,4 +134,7 @@ def computeScores(finalList,monitorsList,DictOfPossibleHistPerMonitor,HistoDict,
     scoreListL2 = [ elem[0] for elem in scoreListL2]
     scoreListChi2 = [elem[0] for elem in scoreListChi2]
     #print("step 5",scoreListL2)
-    return  scoreListL2.index(rumorSources[0]),scoreListChi2.index(rumorSources[0]),len(finalList)
+    if rumorSources[0] in scoreListL2 :
+        return  scoreListL2.index(rumorSources[0]),scoreListChi2.index(rumorSources[0]),len(finalList)
+    else :
+        return len(finalList)-1,len(finalList)-1,len(finalList)
