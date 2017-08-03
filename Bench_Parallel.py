@@ -13,7 +13,7 @@ if __name__ == '__main__':
     if os.name == 'nt':
         toaster = ToastNotifier()
 
-    probas = [0.2]
+    probas = [0.2,0.3,0.5,0.7,0.9]
 
     num_cores = multiprocessing.cpu_count()
 
