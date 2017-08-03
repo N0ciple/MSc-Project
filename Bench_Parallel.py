@@ -59,7 +59,7 @@ if __name__ == '__main__':
         print("Global Proba Chi2: ",moyProbaChi2)
 
         with open('results.txt','a') as f:
-            f.write("\nProba = "+str(proba)+"\n\tGlobal Score for L2 : " + str(np.mean(scoreL2)) +"\n\tGlobal Score for Chi2 : " + str(np.mean(scoreChi2)) + "\n\tProba Detect L2 " + str(probaDetectL2) )
+            f.write("\nProba = "+str(proba)+"\n\tGlobal Score for L2 : " + str(np.mean(scoreL2)) +"\n\tGlobal Score for Chi2 : " + str(np.mean(scoreChi2)) + "\n\tProba Detect L2 " + str(moyProba) )
 
 
 
