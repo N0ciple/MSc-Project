@@ -21,7 +21,7 @@ if __name__ == '__main__':
 
     for proba in probas:
 
-        inputs = range(0,10)
+        inputs = range(0,30)
 
         results = Parallel(n_jobs=num_cores-1)(delayed(runHistoSimulation)(i,proba) for i in inputs)
 
