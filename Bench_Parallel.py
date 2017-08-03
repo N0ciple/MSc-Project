@@ -13,7 +13,7 @@ if __name__ == '__main__':
     if os.name == 'nt':
         toaster = ToastNotifier()
 
-    probas = [0.4]
+    probas = [0.2]
 
     num_cores = multiprocessing.cpu_count()
 
@@ -27,12 +27,25 @@ if __name__ == '__main__':
 
         scoreL2 = [v[0] for v in results]
         scoreChi2 = [v[1] for v in results]
-        moyProba  = [v[2] for v in results]
+        numCandidat  = [v[2] for v in results]
 
         print("\nGlobal Score for L2 : ",np.mean(scoreL2))
         print("Global Score for Chi2 : ",np.mean(scoreChi2))
-        print("Global Proba : ",np.mean(moyProba))
-        print(moyProba)
+
+        # Compute proba of detection
+
+        probaDetectL2 = []
+
+        for score in scoreL2 :
+            if score == 0 :
+                probaDetectL2.append(1)
+            else:
+                probaDetectL2.append(0)
+
+        moyProba = np.mean(probaDetectL2)
+
+        print("All proba ", probaDetectL2)
+        print("Global Proba : ",moyProba)
 
         with open('results.txt','a') as f:
             f.write("\nProba = "+str(proba)+"\n\tGlobal Score for L2 : " + str(np.mean(scoreL2)) +"\n\tGlobal Score for Chi2 : " + str(np.mean(scoreChi2)))

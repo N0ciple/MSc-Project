@@ -112,26 +112,26 @@ def computeScores(finalList,monitorsList,DictOfPossibleHistPerMonitor,HistoDict,
                 d2 = chiDist(DictOfPossibleHistPerMonitor[monitorToTest][source], np.transpose(HistoDict[monitorToTest][np.newaxis]))
                 monitorRankingL2.append((source,d))
                 monitorRankingChi2.append((source,d2))
-        print("step 0",monitorRankingL2)
+        #print("step 0",monitorRankingL2)
 
         monitorRankingL2 = sorted(monitorRankingL2, key=lambda x: x[1])
         monitorRankingChi2 = sorted(monitorRankingChi2, key=lambda x: x[1])
-        print("step 1",monitorRankingL2)
+        #print("step 1",monitorRankingL2)
 
         monitorRankingL2 = [ elem[0] for elem in monitorRankingL2]
         monitorRankingChi2 = [ elem[0] for elem in monitorRankingChi2]
-        print("step 2",monitorRankingL2)
+        #print("step 2",monitorRankingL2)
 
         for i in finalList :
             if i not in monitorsList:
                 scoreDictL2[i] += monitorRankingL2.index(i)
                 scoreDictChi2[i] += monitorRankingChi2.index(i)
-                print("step 3", scoreDictL2)
+                #print("step 3", scoreDictL2)
 
     scoreListL2 = sorted( scoreDictL2.items(),key=lambda x: x[1])
     scoreListChi2 = sorted( scoreDictChi2.items(),key=lambda x: x[1])
-    print("step 4",scoreListL2)
+    #print("step 4",scoreListL2)
     scoreListL2 = [ elem[0] for elem in scoreListL2]
     scoreListChi2 = [elem[0] for elem in scoreListChi2]
-    print("step 5",scoreListL2)
+    #print("step 5",scoreListL2)
     return  scoreListL2.index(rumorSources[0]),scoreListChi2.index(rumorSources[0]),len(finalList)

@@ -64,14 +64,16 @@ def runHistoSimulation(myI, myProba) :
 
     finalList = findAllPossibleCandidates(monitorTrigger,Graph)
 
+
     DictOfPossibleHistPerMonitor = dictOfHistoForPossibleSourcesPerMonitor(monitorsList, finalList, maxStep, propagProba, Graph)
 
     scoreL2, scoreChi2, numCandidat = computeScores(finalList, monitorsList, DictOfPossibleHistPerMonitor, HistoDict, rumorSources)
 
     print("Score L2 : ", scoreL2," score chi2 : ",scoreChi2)
-
+    print("over ",numCandidat," possible sources")
     print("Simulation ",myI, "done")
 
+    return scoreL2, scoreChi2, numCandidat
 
 
 if __name__ == '__main__':
