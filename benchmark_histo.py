@@ -66,7 +66,7 @@ def runHistoSimulation(myI, myProba) :
 
     DictOfPossibleHistPerMonitor = dictOfHistoForPossibleSourcesPerMonitor(monitorsList, finalList, maxStep, propagProba, Graph)
 
-    scoreL2, scoreChi2 = computeScores(finalList, monitorsList, DictOfPossibleHistPerMonitor, HistoDict, rumorSources)
+    scoreL2, scoreChi2, numCandidat = computeScores(finalList, monitorsList, DictOfPossibleHistPerMonitor, HistoDict, rumorSources)
 
     print("Score L2 : ", scoreL2," score chi2 : ",scoreChi2)
 
