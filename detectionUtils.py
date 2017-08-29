@@ -136,9 +136,17 @@ def computeScores(finalList,monitorsList,DictOfPossibleHistPerMonitor,HistoDict,
     #print("step 5",scoreListL2)
 
 
+    try:
+        nite = scoreListL2[0]
 
-
-    if rumorSources[0] in scoreListL2 :
-        return  scoreListL2.index(rumorSources[0]),scoreListChi2.index(rumorSources[0]),len(finalList),scoreListL2[0]
-    else :
-        return len(finalList)-1,len(finalList)-1,len(finalList),scoreListL2[0]
+        if rumorSources[0] in scoreListL2 :
+            return  scoreListL2.index(rumorSources[0]),scoreListChi2.index(rumorSources[0]),len(finalList),scoreListL2[0]
+        else :
+            return len(finalList)-1,len(finalList)-1,len(finalList),scoreListL2[0]
+    except :
+        print("ERROR ###################")
+        print(len(scoreListL2))
+        if rumorSources[0] in scoreListL2 :
+            return  scoreListL2.index(rumorSources[0]),scoreListChi2.index(rumorSources[0]),len(finalList),max(rumorSources[0]-1,0)
+        else :
+            return len(finalList)-1,len(finalList)-1,len(finalList),max(scoreListL2[0]-1,0)

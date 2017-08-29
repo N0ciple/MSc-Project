@@ -3,18 +3,19 @@ from networkUtils import *
 
 def generateGraphReady(myNumNodes,myLinkProba,myMaxThreshold,myNumRumors,myNumMonitors,):
     # mGraph generation
-    print("Generating mGraph")
+    print("Starting Simulation")
+    #print("Generating mGraph")
     mGraph = generateGraph(myNumNodes, myLinkProba, 1)
-    print("----- DONE\nGetting layout")
+    #print("----- DONE\nGetting layout")
     pos = nx.spring_layout(mGraph)
-    print("----- DONE\nSetting default attributes")
+    #print("----- DONE\nSetting default attributes")
     mGraph = initGraphParam(mGraph, myNumRumors, myMaxThreshold)
-    print("----- DONE\nChoosing the source")
+    #print("----- DONE\nChoosing the source")
     mGraph, myRumorSources = initSourceNode(mGraph, myNumRumors)
-    print("----- DONE\nChoosing the monitoring nodes")
+    #print("----- DONE\nChoosing the monitoring nodes")
     mGraph, myMonitorsList = initMonitoringNodes(mGraph, myNumMonitors, myRumorSources, myNumRumors)
-    print("----- DONE")
-    print('Mlist : ', myMonitorsList, '\nSlist : ', myRumorSources)
+    #print("----- DONE")
+    #print('Mlist : ', myMonitorsList, '\nSlist : ', myRumorSources)
 
     return mGraph, pos, myRumorSources, myMonitorsList
 
