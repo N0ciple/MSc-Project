@@ -149,4 +149,4 @@ def computeScores(finalList,monitorsList,DictOfPossibleHistPerMonitor,HistoDict,
         if rumorSources[0] in scoreListL2 :
             return  scoreListL2.index(rumorSources[0]),scoreListChi2.index(rumorSources[0]),len(finalList),max(rumorSources[0]-1,0)
         else :
-            return len(finalList)-1,len(finalList)-1,len(finalList),max(scoreListL2[0]-1,0)
+            return len(finalList)-1,len(finalList)-1,len(finalList),max(rumorSources[0]-1,0)
