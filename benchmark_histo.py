@@ -32,9 +32,9 @@ def runHistoSimulation(myI, myProba) :
     # Parameters definition
     numRumors = 20
     maxThreshold = 1
-    numMonitors = 50
+    numMonitors = 20
     propagProba = myProba
-    numNodes = 500
+    numNodes = 200
     linkProba = 0.3
     monitorTrigger = list()
     numStep = 100
@@ -67,13 +67,15 @@ def runHistoSimulation(myI, myProba) :
 
     DictOfPossibleHistPerMonitor = dictOfHistoForPossibleSourcesPerMonitor(monitorsList, finalList, maxStep, propagProba, Graph)
 
-    scoreL2, scoreChi2, numCandidat = computeScores(finalList, monitorsList, DictOfPossibleHistPerMonitor, HistoDict, rumorSources)
+    scoreL2, scoreChi2, numCandidat, bestCandidat = computeScores(finalList, monitorsList, DictOfPossibleHistPerMonitor, HistoDict, rumorSources)
 
-    print("Score L2 : ", scoreL2," score chi2 : ",scoreChi2)
-    print("over ",numCandidat," possible sources")
+    distToSource = len(nx.shortest_path(Graph,source=rumorSources[0],target=bestCandidat))-1
+
+    #print("Score L2 : ", scoreL2," score chi2 : ",scoreChi2)
+    #print("over ",numCandidat," possible sources")
     print("Simulation ",myI, "done")
 
-    return scoreL2, scoreChi2, numCandidat
+    return scoreL2, scoreChi2, Graph, distToSource
 
 
 if __name__ == '__main__':
