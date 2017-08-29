@@ -33,3 +33,17 @@ Proba Detect L2 1.0
 Proba Bo5 L2 1.0
 Proba Bo10 L2 1.0
  Mean min dist to real source : 0.0
+Proba = 0.7
+Global Score for L2 : 0.0
+Global Score for Chi2 : 0.333333333333
+Proba Detect L2 1.0
+Proba Bo5 L2 1.0
+Proba Bo10 L2 1.0
+ Mean min dist to real source : 0.0
+Proba = 0.9
+Global Score for L2 : 0.0
+Global Score for Chi2 : 0.0
+Proba Detect L2 1.0
+Proba Bo5 L2 1.0
+Proba Bo10 L2 1.0
+ Mean min dist to real source : 0.0
